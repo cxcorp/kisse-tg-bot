@@ -1,0 +1,21 @@
+{
+  "name": "kisse_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node index.js"
+  },
+  "keywords": [],
+  "author": "cxcorp",
+  "license": "MIT",
+  "dependencies": {
+    "file-type": "^10.7.0",
+    "node-fetch": "^2.3.0",
+    "node-telegram-bot-api": "^0.30.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
+  }
+}
