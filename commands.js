@@ -5,17 +5,17 @@ const { CAT_API_URL } = require('./config')
 
 const FETCH_OPTS = {
   headers: {
-    'User-Agent': 'Kisse Telegram Bot (github.com/cxcorp/kisse_tg_bot)'
+    'User-Agent': 'Kisse Telegram Bot (github.com/cxcorp/kisse-tg-bot)'
   },
   timeout: 5000
 }
 
-const createKisseCommand = tgClient => msg => {
+const createCatCommand = (tgClient, apiEndpoint) => msg => {
   const chatId = msg.chat.id
   if (!allowedToSendToChatAlready(chatId)) return
 
   doWithLoadingMessage(tgClient, chatId, async () => {
-    const res = await fetch(CAT_API_URL, FETCH_OPTS)
+    const res = await fetch(`${CAT_API_URL}${apiEndpoint}`, FETCH_OPTS)
     const buffer = await res.buffer()
 
     const { ext, mime } = fileType(buffer)
@@ -54,7 +54,8 @@ async function doWithLoadingMessage(tgClient, chatId, action) {
 }
 
 const attachCommands = tgClient => {
-  tgClient.onText(/^\/kisse\b/, createKisseCommand(tgClient))
+  tgClient.onText(/^\/kisse\b/, createCatCommand(tgClient, '/cat'))
+  tgClient.onText(/^\/kissegif\b/, createCatCommand(tgClient, '/cat/gif'))
 }
 
 module.exports = {
